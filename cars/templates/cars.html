@@ -2,8 +2,9 @@
         <head>
             <title>Meus Carros</title>
         </head>
+        {% block content %}
         <body>
-            <h1>Carros do Chris</h1>
-            <h3>Só carro top</h3>
+            <h3>{{ cars.model }}</h3>
         </body>
+        {% endblock %}
     </hmtl>

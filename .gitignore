@@ -131,6 +131,11 @@ celerybeat.pid
 # SageMath parsed files
 *.sage.py
 
+# Databases
+*.db
+.db*
+db.sqlite3
+
 # Environments
 .env
 .venv

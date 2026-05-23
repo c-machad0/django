@@ -6,13 +6,13 @@ from django.utils.decorators import method_decorator
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 
 
-class CarsListView(ListView):
+class CarListView(ListView):
     model = Car
-    template_name = 'cars.html'
+    template_name = 'car_list.html'
     context_object_name = 'cars'
 
     def get_queryset(self):
-        cars = super().get_queryset().order_by('model')
+        cars = super().get_queryset().order_by('-id')
         search = self.request.GET.get('search')
 
         if search:
@@ -21,16 +21,22 @@ class CarsListView(ListView):
         return cars
 
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = 'Listagem de Carros'
+
+        return context
+
 class CarDetailView(DetailView):
     model = Car
     template_name = 'car_detail.html'
 
 
 @method_decorator(login_required(login_url='login'), name='dispatch')    
-class NewCarCreateView(CreateView):
+class CarCreateView(CreateView):
     model = Car
     form_class = CarModelForm
-    template_name = 'new_car.html'
+    template_name = 'car_form.html'
     success_url = '/cars/'
 
 
@@ -47,5 +53,5 @@ class CarUpdateView(UpdateView):
 @method_decorator(login_required(login_url='login'), name='dispatch')    
 class CarDeleteView(DeleteView):
     model = Car
-    template_name = 'car_delete.html'
+    template_name = 'car_confirm_delete.html'
     success_url = '/cars/'

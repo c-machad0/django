@@ -37,7 +37,7 @@ class CarCreateView(CreateView):
     model = Car
     form_class = CarModelForm
     template_name = 'car_form.html'
-    success_url = reverse_lazy('cars:list')
+    success_url = reverse_lazy('cars:car-list')
 
 
 @method_decorator(login_required(login_url='login'), name='dispatch')    
@@ -45,7 +45,7 @@ class CarUpdateView(UpdateView):
     model = Car
     form_class = CarModelForm
     template_name = 'car_update.html'
-    success_url = reverse_lazy('cars:list')
+    success_url = reverse_lazy('cars:car-list')
 
     def get_success_url(self):
         return reverse_lazy('car_detail', kwargs={'pk': self.object.pk})
@@ -55,4 +55,4 @@ class CarUpdateView(UpdateView):
 class CarDeleteView(DeleteView):
     model = Car
     template_name = 'car_confirm_delete.html'
-    success_url = reverse_lazy('cars:list')
+    success_url = reverse_lazy('cars:car-list')

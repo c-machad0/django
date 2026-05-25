@@ -6,7 +6,7 @@ class CarModelForm(forms.ModelForm):
 
     class Meta:
         model = Car
-        fields = ['brand', 'model', 'factory_year', 'model_year'] # todos os campos da tabela carro
+        fields = '__all__' # todos os campos da tabela carro
 
     def clean_value(self): # Não pode cadastrar carros abaixo de R$ 20.000,00
         value = self.cleaned_data.get('value') # captura o value que o usuário colocou no formulário

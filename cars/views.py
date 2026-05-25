@@ -23,7 +23,7 @@ class CarListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['page_title'] = 'Listagem de Carros'
+        context['page_title'] = 'Lista de Carros'
 
         return context
 
@@ -37,7 +37,7 @@ class CarCreateView(CreateView):
     model = Car
     form_class = CarModelForm
     template_name = 'car_form.html'
-    success_url = '/cars/'
+    success_url = reverse_lazy('cars:list')
 
 
 @method_decorator(login_required(login_url='login'), name='dispatch')    
@@ -45,6 +45,7 @@ class CarUpdateView(UpdateView):
     model = Car
     form_class = CarModelForm
     template_name = 'car_update.html'
+    success_url = reverse_lazy('cars:list')
 
     def get_success_url(self):
         return reverse_lazy('car_detail', kwargs={'pk': self.object.pk})
@@ -54,4 +55,4 @@ class CarUpdateView(UpdateView):
 class CarDeleteView(DeleteView):
     model = Car
     template_name = 'car_confirm_delete.html'
-    success_url = '/cars/'
+    success_url = reverse_lazy('cars:list')
